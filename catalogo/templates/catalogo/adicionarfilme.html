@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{%load bootstrap5%}
+
+{%block title%} Adicionar Filme {%endblock%}
+
+{% block content %}
+<h1 style="text-align: center;">Adicionar Filme</h1>
+
+<form method="post" style="display: flex; align-items: center; justify-content: center; flex-direction: column;"
+    action="{%url 'adicionar_filme' %}">
+    {%csrf_token%}
+    {%bootstrap_form form %}
+    <button type="submit" class="btn btn-primary"> Cadastrar Filme</button>
+</form>"
+{%endblock%}
