@@ -21,6 +21,7 @@ class Filme(models.Model):
     ano_lancamento = models.IntegerField(null=False)
     descricao = models.TextField(max_length=500, default='Sem Descrição')
     diretor = models.CharField(max_length=100, null=False)
+    
     def __str__(self):
         return self.titulo
    
