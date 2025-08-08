@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 from .models import Perfil, Filme
 from django.contrib.auth import authenticate, login 
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    return render(request, 'catalogo/home.html') 
+    return render(request, 'catalogo/home.html')
 
 def login_view(request):
     if request.method != 'POST':
@@ -20,12 +21,10 @@ def login_view(request):
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             if user is not None:
                 login(request, user)
-                
                 return redirect('home')
 
     context = {'form': form}
     return render(request, 'catalogo/login.html', context)
-
 
 def cadastro(request):
     if request.method != 'POST':
@@ -33,35 +32,36 @@ def cadastro(request):
     else:
         form = CadastroForm(request.POST)
         if form.is_valid():
-            if request.POST['password'] == request.POST['confirm_password']:
-                user = User.objects.create_user(username=form.cleaned_data ['username'], email= form.cleaned_data['email'], password = form.cleaned_data['password']) 
-                perfil = Perfil.objects.create(user= user, tipo_usuario= form.cleaned_data['tipo_usuario'])
+            if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
+                user = User.objects.create_user(username=form.cleaned_data['username'], email=form.cleaned_data['email'], password = form.cleaned_data['password'])
+                perfil = Perfil.objects.create(user=user, tipo_usuario=form.cleaned_data['tipo_usuario'])
                 user.save()
                 perfil.save()
                 messages.success(request, 'Cadastro realizado com sucesso!')
-                return redirect ('home')
+                return redirect('login_view')
             else:
-                messages.error(request, 'As senhas não conferem')
-            
-    context = {'form':form}
+                messages.error(request, 'As senhas não conferem!')
+        else:
+            messages.error(request, 'Erro ao cadastrar usuário. Verifique os dados e tente novamente.')
+
+    context = {'form': form}
     return render(request, 'catalogo/cadastro.html', context)
 
+@login_required
 def ver_filmes(request):
     filmes = Filme.objects.all()
     context = {'filmes': filmes}
-    
-    return render(request, 'catalogo/verfilmes.html', context)
+    return render(request, 'catalogo/verFilmes.html', context)
 
+@login_required
 def adicionar_filme(request):
     if request.method != 'POST':
-        form = FilmeForm() 
+        form = FilmeForm()
     else:
         form = FilmeForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and request.user.perfil.tipo_usuario =="administrador":
             form.save()
-            redirect('ver_filmes')
-
+            return redirect('ver_filmes')
+    
     context = {'form': form}
-    return render(request, 'catalogo/adicionarfilme.html', context)
-
-
+    return render(request, 'catalogo/adicionarFilme.html', context)

@@ -15,7 +15,7 @@ class Perfil(models.Model):
         return f'Perfil de {self.user.username}. Seu tipo é {self.tipo_usuario}.'
 
 class Filme(models.Model):
-    imagem = models.ImageField(upload_to='adicionarfilme/', blank=True, null=True)
+    #imagem = models.ImageField(upload_to='adicionarfilme/', blank=True, null=True)
     titulo = models.CharField(max_length=100, null=False)
     genero = models.CharField(max_length=50, choices=[("acao", "Ação"), ("aventura", "Aventura"), ("misterio", "Mistério"), ("comedia","Comédia"), ("drama",'Drama'), ("terror","Terror"), ("ficcao","Ficção"),("suspense","Suspense"),("romance", "Romance")], null=False)
     ano_lancamento = models.IntegerField(null=False)
