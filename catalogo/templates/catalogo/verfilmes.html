@@ -25,9 +25,10 @@
                 <td>{{ filme.ano_lancamento }}</td>
                 <td>{{ filme.descricao }}</td>
                 <td>{{ filme.diretor }}</td>
+                {% if user.is_authenticated and user.perfil.tipo_usuario == 'administrador' %}
                 <td><a href="{% url 'editar_filme' filme.id %}" class="btn btn-warning">Editar</a></td>
                 <td><a href ="{% url 'excluir_filme' filme.id %}" class="btn btn-warning">Excluir</a></td>
-                
+                {% endif %}
             </tr>
             {% empty %}
             <tr>
