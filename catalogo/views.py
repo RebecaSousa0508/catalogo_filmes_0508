@@ -68,7 +68,7 @@ def adicionar_filme(request):
 
 
 def editar_filme(request):
-    filme = Filme.objects.get(id=id)
+    filme = Filme.objects.get(id= id)
 
     if request.method == "POST":
         form = FilmeForm(request.POST, request.FILES, instance=filme)
@@ -77,4 +77,4 @@ def editar_filme(request):
             return redirect('ver_filmes') 
     else:
         form = FilmeForm(instance=filme)
-    return render(request, 'editar_filme.html', {'form': form})
+    return render(request, 'editar_filme.html', {'form': form}) 

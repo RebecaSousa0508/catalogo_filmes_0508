@@ -25,7 +25,8 @@
                 <td>{{ filme.ano_lancamento }}</td>
                 <td>{{ filme.descricao }}</td>
                 <td>{{ filme.diretor }}</td>
-
+                <td href="{% url 'editar_filme' filme.id %}" class="btn btn-warning">Editar</td>
+                <td href ="{% url 'excluir_filme' filme.id %}" class="btn btn-warning">Excluir</td>
             </tr>
             {% empty %}
             <tr>
@@ -34,4 +35,7 @@
             {% endfor %}
         </tbody>
     </table>
+    
+
+
 {%endblock%}
