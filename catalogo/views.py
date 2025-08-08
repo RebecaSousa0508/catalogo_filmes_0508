@@ -62,6 +62,6 @@ def adicionar_filme(request):
             redirect('ver_filmes')
 
     context = {'form': form}
-    return render(request, 'catalogo/adicionarfilmes.html', context)
+    return render(request, 'catalogo/adicionarfilme.html', context)
 
 
