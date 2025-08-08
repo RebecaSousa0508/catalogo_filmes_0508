@@ -66,9 +66,9 @@ def adicionar_filme(request):
     context = {'form': form}
     return render(request, 'catalogo/adicionarFilme.html', context)
 
-
-def editar_filme(request):
-    filme = Filme.objects.get(id= id)
+@login_required
+def editar_filme(request, id):
+    filme = Filme.objects.get(pk = id)
 
     if request.method == "POST":
         form = FilmeForm(request.POST, request.FILES, instance=filme)
@@ -77,4 +77,11 @@ def editar_filme(request):
             return redirect('ver_filmes') 
     else:
         form = FilmeForm(instance=filme)
-    return render(request, 'editar_filme.html', {'form': form}) 
+    return render(request, 'catalogo/editar_filme.html', {'form': form, 'filme':filme}) 
+
+@login_required
+def excluir_filme(request, id):
+    filme = Filme.objects.get( pk = id)
+    filme.delete()
+    return redirect('ver_filmes')
+    

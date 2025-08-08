@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{%load bootstrap5%}
+
+{%block title%} Atualizar filme {%endblock%}
+
+{% block content %}
+<h1 style="text-align: center;">Atualizar filme</h1>
+
+<form method="post" style="display: flex; align-items: center; justify-content: center; flex-direction: column;"
+    action="{%url 'editar_filme' filme.id %}">
+    {%csrf_token%}
+    {%bootstrap_form form %}
+    <button type="submit" class="btn btn-primary"> Atualizar filme </button>
+</form>
+{%endblock%}
