@@ -1,12 +1,50 @@
-
 {% extends "base.html" %}
 
 {% block title %}Página inicial{% endblock %}
 
 {% block content %}
-<blockquote class=" blockquote text-left">
-<h1 class="text-center">Bem vindo!</h1>
-<p class="text-center">Seu catálogo de filmes e séries favorito.</p>
 
-</blockquote>
-{% endblock%}
+<style>
+  /* Container principal que centraliza todo o conteúdo */
+  .container-full-height {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    min-height: 100vh; /* Garante que o container ocupe a altura total da tela */
+    width: 100%;
+  }
+
+  /* O bloco de texto (o "quadrado") */
+  .text-block {
+    width: 100%;
+    max-width: 600px; /* Define uma largura máxima maior */
+    padding: 50px; /* Aumenta o preenchimento para parecer maior */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+
+  .text-block h1 {
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    /* Aplica a fonte Comic Relief para o título */
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.0rem; 
+}
+  .text-block p {
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    font-size: 1.4rem;
+    font-family: 'Roboto', sans-serif;
+  }
+</style>
+
+<div class="container-full-height">
+  <div class="text-block">
+    <h1>Bem vindo!</h1>
+    <p>Seu catálogo de filmes e séries favorito.</p>
+  </div>
+</div>
+
+{% endblock %}

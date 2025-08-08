@@ -1,15 +1,49 @@
-{%extends "base.html"%}
-{%load bootstrap5%}
+{% extends "base.html" %}
+{% load bootstrap5 %}
 
-{%block title%} Login de Usuário {%endblock%}
+{% block title %}Login de Usuário{% endblock %}
 
 {% block content %}
-<h1 style="text-align: center;">Login de Usuário</h1>
 
-<form method="post" style="display: flex; align-items: center; justify-content: center; flex-direction: column;"
-    action="{%url 'login_view' %}">
-    {%csrf_token%}
-    {%bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>"
-{%endblock%}
+<style>
+  /* A classe 'd-flex' transforma o elemento em um contêiner flexível. */
+  /* A classe 'justify-content-center' centraliza o conteúdo horizontalmente. */
+  /* A classe 'align-items-center' centraliza o conteúdo verticalmente. */
+  .container-full-height {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Define a altura do contêiner para 100% da viewport para que a centralização vertical funcione. */
+    height: 100vh; 
+  }
+
+  /* O restante do seu CSS pode permanecer o mesmo, mas a centralização será controlada pelo container. */
+  .form-signin {
+    width: 100%;
+    max-width: 360px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .form-signin h1 {
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+  }
+  .btn-block {
+    width: 100%;
+  }
+</style>
+
+<div class="container-full-height">
+  <form method="post" action="{% url 'login_view' %}" class="form-signin">
+    {% csrf_token %}
+    <h1>Login de Usuário</h1>
+    {% bootstrap_form form layout="vertical" %}
+    <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Entrar</button>
+  </form>
+</div>
+
+{% endblock %}
